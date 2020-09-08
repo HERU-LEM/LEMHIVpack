@@ -1,0 +1,105 @@
+---
+title: "1 Model Inputs"
+# output: rmarkdown::html_vignette
+output:
+  bookdown::html_document2
+pkgdown:
+  as_is: true
+vignette: >
+  %\VignetteIndexEntry{bb_model_inputs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography:
+- book.bib
+- packages.bib  
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r load-inputs, include=FALSE}
+# paste code snippets
+```
+
+
+# 1.0 Data read-in {-}
+
+
+As described in our evidence synthesis paper, we populated model parameters for each city by synthesizing evidence from 59 peer-reviewed publications and 24 public health and surveillance reports and executed primary analyses using 11 data sets [@evsynth]. Where data were not available, we conducted extensive model validation and calibration to ensure that uncertain model parameters produced results that matched real-world outcomes. We identified parameters that required city-specific data and stratification by gender, risk group and race/ethnicity a priori and sought out databases for primary analysis to augment our evidence synthesis. We also derived information and values for the free parameters; “free parameters” are key uncertain parameters which are not predefined by the model and lead to the most significant uncertainty in target outcomes. The Morris method [@morris1; @morris2; @morris3] was used to select the most influential parameters for calibration, and the Nelder-Mead algorithm [@neldermead1; @neldermead2] was used to iteratively calibrate the model to generate 2,000 best-fitting parameter sets. 
+
+Through this iterative calibration to specific targets/endpoints in each city - the number of diagnosed PLHIV at each year end (stratified by sex, race/ethnicity and risk group), the annual number of new HIV diagnoses (separately for the overall estimate, African/American (Black) population, and MSM), and the annual number of all-cause mortality deaths among PLHIV (separately for the overall estimate, African/American (Black) population, and MSM), free parameters and their weights were determined.  Further details are provided in our calibration manuscript [@calibration].  All of this information is stored in *Evidence-Inputs-Master.xlsx*, *Evidence-Inputs-Master-Ideal.xlsx* and *cali_par_all.xlsx* found in the *Data Files* directory, and read-in using the *CascadeCEA-Model-1-Module-Data.input.R* script.  
+
+$~$
+
+# 1.1 Create grouping indicators {-}
+
+
+In this component we generate grouping indicators for the 42 population groups; descriptions and R name for each are presented below in Table 1.This function is in the *CascadeCEA-Model-0-Group.number.R* script in the *R* directory. 
+
+$~$
+
+**Table 1: Description of intial model parameters with their `R` name and values**
+
+| **Group Indicator Name**         |              **Description**              | **R name**|**# of groups**|
+|:---------------------------------|:-----------------------------------------:|:---------:|:-------------:|
+| Male                             | Gender - male                             |` m `      | 30            |
+| Female                           | Gender - female                           |` f`       | 12            |
+| White                            | Race/ethnicity - White                    | `white`   | 14            |
+| Black                            | Race/ethnicity - Blacks/African Americans | `black`   | 14            |
+| Hispanic                         | Race/ethnicity - Hispanics/Latinos        | `hisp`    | 14            |
+| All MSM                          | All MSM groups including MWID             |`all.msm`  | 18            |
+| All PWID                         | All PWID groups including MWID            |`all.idu`  | 24            |
+| All MSM and PWID                 | Intersection of all.msm and all.idu       | `midu`    | 12            |
+| Opioid Agonist Therapy (OAT)     |                                           | `oat`     | 12            |
+| Heterosexual                     |                                           | `het`     | 12            |
+| Low risk                         | All low-risk groups, excludes PWID        | `low`     | 15            |
+| High risk                        | All high-risk groups, excludes PWID       | `high`    | 15            |
+| Low-risk MSM                     | Intersection of all.msm and low           | `msm.l`   | 9             |
+| High-risk MSM                    | Difference between all.msm and low        | `msm.h`   | 9             |
+| Low-risk heterosexuals           | Intersection of het and low               | `het.l`   | 6             |
+| Low-risk male heterosexuals      | Intersection of het.l and m               | `het.m.l` | 6             |
+| Low-risk female heterosexuals    | Intersection of het.l and f               | `het.f.l` | 6             |
+| MSM only                         | Difference between all.msm and all.idu    | `msm`     | 6             |
+| PWID only                        | Difference between all.idu and  all.msm   | `idu`     | 12            |
+| Heterosexual males               | Intersection of het and m                 | `het.m`   | 6             |
+| Heterosexual females             | Intersection of het and f                 | `het.f`   | 6             |
+| Off Opioid Agonist Therapy (OAT) | Difference between all.idu and oat        | `off.oat` | 12            |
+| Male PWID                        | Intersection of idu and m. Excludes MSM   | `idu.m`   | 6             |
+| Female PWID                      | Intersection of idu and f                 | `idu.f`   | 6             |
+| Low-risk MSM                     | Intersection of msm and low               | `msmL`    | 3             |
+| High-risk MSM                    | Intersection of msm and high              | `msmH`    | 3             |
+| Low-risk MSM-IDU                 | Intersection of midu and low              | `miduL`   | 6             |
+| HIgh-risk MSM-IDU                | Intersection of midu and high             | `miduH`   | 6             |
+| Low-risk hetersoexual males      | Intersection of het.m  and low            | `het.mL`  | 3             |
+| High-risk hetersoexual males     | Intersection of het.m and  high           | `het.mH`  | 3             |
+| Low-risk hetersoexual females    | Intersection of het.f and low             | `het.fL`  | 3             |
+| High-risk hetersoexual females   | Intersection of het.f and high            | `het.fH`  | 3             |
+
+$~$
+
+# 1.2 Populate cells for model instantiation {-}
+
+
+In this component, we calculate initial cell sizes for all 42 population strata and 19 model states/compartments using the `model_initial` function.
+
+$~$
+
+# 1.3 Parameterization {-}
+
+
+In this component, we set values for model paramaters with multiple dimensions using *CascadeCEA-Model-0-Parameterization.R* in the *R* directory. This includes loading population demographic parameters and parameters that require manipulation (either through calibration, or modification as a result of interventions). Cost-effectiveness analyses (CEA) parameters including QALY parameters, state-level costs, and intervention costs are also initialized in this step.
+
+$~$
+
+# 1.4 Assign free parameter values {-}
+
+
+In this component, values for the free parameters are derived, calibrated and updated using *CascadeCEA-Model-0-Parameter.update.R* in the *R* directory. Note that this component (1.4 Assign free parameter values) only needs to be done once - when running the model for the first time. 
+
+$~$
+
+# References {-}

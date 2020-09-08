@@ -1,0 +1,103 @@
+---
+title: "2 Model Functions"
+# output: rmarkdown::html_vignette
+output:
+  bookdown::html_document2
+pkgdown:
+  as_is: true
+vignette: >
+  %\VignetteIndexEntry{cc-model_functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography:
+- book.bib
+- packages.bib  
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This section describes the basic functions of the dynamic, compartmental HIV transmission model. For further details, see [@calibration;@interventions].
+
+$~$
+
+# 2.0 Force of HIV infection {-}
+
+
+In this component, we estimate the Force of Infection (FoI), which is the rate at which susceptible individuals become infected in the population and is a function of many different parameters. A list of FoI parameters are provided in Table 2.1.
+
+**Table 2.1: Description of FoI parameters with their `R` names**
+
+|**R name**  | **Description**                                                       |
+|:-----------|:---------------------------------------------------------------------:|
+| `y`        | Number of individuals in each compartment                             |
+| `no`       | Number of opposite sexual partners for each compartment               |
+| `uoC`      | Condom use adjustment term for opposite sex                           |
+| `ns`       | Number of same sexual partners for each compartment                   |
+|`usC`       | Condom use adjustment term for same sex                               |
+| `e0`       | Assortative coefficient for heterosexual mixing between ethnic groups |
+| `eS`       | Assortative coefficient for homosexual mixing between ethnic groups   |
+| `sigmaFM`  | Probability of transmission by F->M for 16 HIV+ states                |
+| `sigmaMF`  | Probability of transmission by M->F for 16 HIV+ states                |
+| `sigmaM`   | Probability of transmission by same sex for 16 HIV+ states            |
+| `tau`      | Probability of transmission by injection for 16 HIV+ states           |
+| `eff.prep` | Percentage reduction in risk of infection for PrEP                    |
+| `d`        | Number of injections                                                  |
+| `s`        | Proportion of injections that are shared                              |
+| `eff.oat`  | Percent reduction in # of shared injections reduced to OAT            |
+| `cov.ssp`  | Coverage of syringe services programs                                 |
+
+
+Our model captures HIV transmission between susceptible and infected individuals via heterosexual contact, homosexual contact and needle-sharing. The effects of sexual mixing patterns (assortative and proportional partnership mixing) and sexual risk behavior (ie. condom use, number of partners) are also accounted for. Consistent with prior studies, we allowed men who have sex with men (MSM) to potentially have heterosexual contact with women. To calculate FoI, we determine a mixing matrix and calculate the mixing probability between subgroups. That is to say, the transmission between susceptible and infected individuals is represented as a matrix which considers the sufficient contact rate between members of susceptible compartments and members of infected compartments.  Groups represent opposite sexes and are defined by race/ethnicity and sexual risk level (high or low). To avoid over-mixing between high- and low-risk populations (which may cause an overestimation of heterosexual transmission), the mixing probability between high-and low-risk individuals is restricted to 1% (proportionately) of partnerships formed. 
+
+$~$
+
+# 2.1 Nonlinear Ordinary Differential Equations (ODE functions) {-}
+
+
+We constructed a system of nonlinear ordinary differential equations (ODEs) to capture movement between 19 base model states for each of the 42 population groups considered in our model (refer to figures in *Introduction* section) . The complete model is thus comprised of 798 equations (42 population groups 19 states). A list of ODE parameters are provided in Table 2.2.
+
+$~$
+
+**Table 2.2: Description of ODE parameters and their `R` names**
+
+| **R name**                           | **Description**                                                                              
+|:-------------------------------------|:---------------------------------------------------------------------------------------------:|
+| *ODE parameters for all groups*                                                                                                       
+| `x`                                  | a vector containing the number of individuals in each HIV state                                
+| `lambda`                             | Sufficient contact rate between individuals                                                    
+| `lambda.p`                           | Sufficient contact rate for individuals on PrEP                                                
+| `rho`                                | Entry rate (assume the same for all groups)                                                    
+| `1/ws`                               | Average duration uninfected individuals in compartment S remain (as identified after screening) | 
+|`1/wp`                                | Average duration uninfected individuals in compartment S~p~ remain on PrEP                        
+| `mu_mat`                             | Maturation rates (age>65)                                                                       
+| `mo`                                 | Mortality rates for 19 states                                                                   
+| `psi`                                | Screening rates for susceptible or infected                                                     
+| `psi.p`                              | Screening rates for I~ap~ (acute HIV on PrEP)                                                     
+| `theta.ai`                           | Transition rate from acute states (I~a~) to chronic state (CD4>=500; I~1~)                          
+| `theta.ad`                           | Transition rate from acute states (D~a~) to chronic state (CD4>=500; D~1~)                          
+| `phi`                                | Percent of infected of people receiving ART once diagnosed                                      
+| `v2`,`v3`                            | symptom-based case finding rate for I~2~ and I~3~, respectively                                   
+| `alpha`                              | ART initiation rate for D~1~,D~2~, and D~3~                                                           
+| `alpha.re`                           | ART re-initiation rate for O~1~,O~2~, and O~3~                                                        
+| `theta.1`                            | HIV disease progression rate for those not on ART, from I~1~/D~1~ to I~2~/D~2~                          
+| `theta.2`                            | HIV disease progression rate for those not on ART, from I~2~/D~2~ to I~3~/D~3~                          
+| `theta.t`                            | transition probabilities for those on ART                                                       
+| `theta.o`                            | ART dropout probability from states T~1~,T~2~,T~3~                                                    
+| `eta`                                | PrEP entry rate                                                                                 
+| *Additional ODE parameters for PWID*                                                                                                  
+| `x.offoat`                           | a vector containing # of individuals off OAT                                                    
+| `oat.e`                              | OAT entry rate                                                                                  
+| `oat.q`                              | OAT dropout rate                                                                                
+
+$~$
+
+Note that opioid agonist treatment (OAT) was only available to all PWID and MSM-PWID. As such, the model ODE equations are grouped for MSM and Heterosexual HIV risk groups (non-PWID), PWID and MSM-PWID receiving OAT, and PWID and MSM-PWID non receiving OAT; corresponding R scripts are `ode.list`, `ode.list.OAT`, and `ode.list.offOAT` respectively, found in `LEMHIVpack` and the [*R*](https://github.com/benenns/LEMpackTEST/tree/master/R) directory of the LEMHIVpack github repository. 
+
+$~$
+
+# References {-}

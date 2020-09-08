@@ -1,0 +1,12 @@
+pandoc: 2.10.1
+pkgdown: 1.5.1
+pkgdown_sha: ~
+articles:
+  aa-introduction: aa-introduction.html
+  bb-model_inputs: bb-model_inputs.html
+  cc-model_functions: cc-model_functions.html
+  dd-interventions: dd-interventions.html
+  ee-run_model: ee-run_model.html
+  ff-analysis: ff-analysis.html
+last_built: 2020-09-03T15:45Z
+

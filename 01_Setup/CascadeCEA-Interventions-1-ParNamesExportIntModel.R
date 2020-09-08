@@ -1,0 +1,96 @@
+export.int.model.names <- c("names.gp", "temp.int", "all.params", "Discounting",
+                            "rname", "calpar.info", "calib_mul", "calpar",
+                            "par_info", "vlist", "pwid.gn.fun", "names.pwid",
+                            "msm.gn.fun", "names.msm", "gp18.gn.fun", "gp.gn.fun",
+                            "names.e", "state.name", "CITY", "all.idu", "oat",
+                            "idu.m", "midu", "idu.f", "het.m", "het.f", "msm",
+                            "msm.h", "off.oat", "white", "m", "black", "hisp",
+                            "f", "bl.oat", "end_yr_ind", "yr", "euler", "lyr",
+                            "ode_model", "x", "vt", "FoI", "ode_list",
+                            "ode_list_offOAT", "ode_list_OAT",
+                            "end_yr_ind", "n", "nyr", "n.gp",
+                            "int.sus", "end.proj", "start.proj", "names18",
+                            "case",
+
+                            "interventions", "current.int",
+                            "true.false.interventions", "load.status.quo",
+
+                            "intervention.model", "intervention.model.scenario",
+                            "intervention.model.sa",
+                            "intervention.model.scenario.combination",  "comb.eva.func", "true.false.interventions.combination",
+                            "combination_list", "scale.interventions.combination", "time.period.infections.DM",
+
+                            "scale.interventions", "current.scale",
+                            "Int.Scale.ls", "L.Int.Scale.ls", "U.Int.Scale.ls",
+
+                            "accum.outcomes", "accum.outcomes.scenario.combination",
+                            "sust.periods", "scale.increments",
+                            "scale.up.period", "scale.up", "int.first.year",
+                            "int.tst", "int.ARTinit", "int.retention",
+                            "int.dropout", "int.immARTinit", "int.reARTinit",
+                            "int.ssp", "int.prep",
+                            "nBUP.m", "nMET.m", "nOAT.m",
+
+                            "IntEff.prep" , "IntEff.SSP",
+                            "IntEff.BUP" , "IntEff.MET",
+                            "IntEff.relink", "IntEff.reART",
+                            "IntEff.immART", "IntEff.immART.target",
+                            "IntEff.ARTEMRprompt",
+                            "IntEff.ARTreten.target", "IntEff.ARTreten",
+                            "IntEff.ARTinit",
+                            "IntEff.test.nurse", "IntEff.test.OAT",
+                            "IntEff.test.optout.ER", "IntEff.test.optout.PC",
+                            "IntEff.test.EMR",
+
+                            "All.Costs.ls", "StateQALYs",
+
+                            "intervention.testing.modif",
+                            "intervention.initiation.modif",
+                            "intervention.retention.modif",
+                            "intervention.dropout.modif",
+                            "intervention.immediateART.modif",
+                            "intervention.reinitiation.modif",
+                            "intervention.ssp.modif",
+                            "intervention.oat.modif",
+                            "intervention.prep.modif",
+
+                            "IntBaseline.SSP",
+                            "IntBaseline.MET", "IntBaseline.BUP",
+                            "IntBaseline.prep"
+                            )
+
+
+export.accum.names <- c("StateCostsHRU", "StateCostsART", "StateCostsARTinit",
+                        "StateCostsOAT", "StateCostsPrEP",
+                        "StateCostsTests.psi.p", "StateCostsTests.psi", "StateQALYs",
+
+                        "IntCosts.test.optout.ER", "IntCosts.impl.test.optout.ER", "IntCosts.sust.test.optout.ER",
+                        "IntCosts.test.optout.PC", "IntCosts.impl.test.optout.PC", "IntCosts.sust.test.optout.PC",
+                        "IntCosts.test.EMR", "IntCosts.impl.test.EMR", "IntCosts.sust.test.EMR",
+                        "IntCosts.test.nurse", "IntCosts.impl.test.nurse", "IntCosts.sust.test.nurse",
+                        "IntCosts.test.OAT", "IntCosts.impl.test.OAT", "IntCosts.sust.test.OAT",
+                        "IntCosts.ARTinit", "IntCosts.impl.ARTinit", "IntCosts.sust.ARTinit",
+                        "IntCosts.ARTreten", "IntCosts.impl.ARTreten", "IntCosts.sust.ARTreten",
+                        "IntCosts.ARTreten.target", "IntCosts.impl.ARTreten.target", "IntCosts.sust.ARTreten.target",
+                        "IntCosts.ARTEMRprompt", "IntCosts.impl.ARTEMRprompt", "IntCosts.sust.ARTEMRprompt",
+                        "IntCosts.immART", "IntCosts.impl.immART", "IntCosts.sust.immART",
+                        "IntCosts.immART.target", "IntCosts.impl.immART.target", "IntCosts.sust.immART.target",
+                        "IntCosts.reART", "IntCosts.impl.reART", "IntCosts.sust.reART",
+                        "IntCosts.relink", "IntCosts.impl.relink", "IntCosts.sust.relink",
+                        "IntCosts.SSP", "IntCosts.impl.SSP", "IntCosts.sust.SSP",
+                        "IntCosts.BUP", "IntCosts.impl.BUP", "IntCosts.sust.BUP",
+                        "IntCosts.MET", "IntCosts.impl.MET", "IntCosts.sust.MET",
+                        "IntCosts.prep", "IntCosts.impl.prep", "IntCosts.sust.prep",
+
+                        "IntScale.test.optout.ER", "IntScale.test.optout.PC", "IntScale.test.EMR",
+                        "IntScale.test.nurse", "IntScale.test.OAT",
+                        "IntScale.ARTinit", "IntScale.ARTreten", "IntScale.ARTreten.target",
+                        "IntScale.ARTEMRprompt", "IntScale.immART", "IntScale.immART.target",
+                        "IntScale.reART", "IntScale.relink",
+
+                        "IntScale.SSP", "IntScale.BUP", "IntScale.MET", "IntScale.prep",
+
+                        "IntBaseline.SSP",
+                        "IntBaseline.MET", "IntBaseline.BUP",
+                        "IntBaseline.prep"
+)
