@@ -1,0 +1,70 @@
+Type: Package
+Package: LEMHIVpack
+Title: Localized Economic HIV Model
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Xiao",
+             family = "Zang",
+             role = c("aut", "cre"),
+             email = "xiao.zang@brown.edu"),
+      person(given = "Emanuel",
+             family = "Krebs",
+             role = "aut",
+             email = "ekrebs@cfenet.ubc.ca"),
+      person(given = "Benjamin",
+             family = "Enns",
+             role = "aut",
+             email = "jmin@cfenet.ubc.ca"),
+      person(given = "Jeong",
+             family = "Min",
+             role = "aut",
+             email = "benns@cfenet.ubc.ca"),
+      person(given = "Siyuan",
+             family = "Chen",
+             role = "aut",
+             email = "siyuan_chen@sfu.ca"),
+      person(given = "Amanda",
+             family = "My Linh Quan",
+             role = "aut",
+             email = "amanda.quan@mail.utoronto.ca"),
+      person(given = "Bohdan",
+             family = "Nosyk",
+             role = "aut",
+             email = "bnosyk@cfenet.ubc.ca",
+             comment = c(ORCID = "0000-0003-2513-3718")))
+Maintainer: Xiao Zang <xiao.zang@brown.edu>
+Description: This repository contains code and data to implement the Localized Economic Modeling (LEM) to produce the 
+  dynamic compartmental modeling results published in: Nosyk B, Zang X, Krebs E, Enns B, Min JE, Behrends CN, Del Rio C, Dombrowski JC, 
+  Feaster DJ, Golden M, Marshall BD. "Ending the HIV epidemic in the USA: an economic modelling study in six cities." 
+  The Lancet HIV. 2020 Mar 5.
+License: file LICENSE
+Depends:
+    R (>= 3.5.0)
+Imports:
+    gtools,
+    openxlsx,
+    abind,
+    ggplot2,
+    reshape2,
+    gridExtra,
+    deSolve,
+    abind,
+    zoo,
+    tictoc,
+    rmarkdown,
+    stringr,
+    foreach,
+    doFuture,
+    rstudioapi,
+    cowplot,
+    Hmisc
+Suggests: 
+    knitr
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+URL: https://HERU-LEM.github.io/LEMpackHIV, https://github.com/HERU-LEM/LEMpackHIV
+BugReports: https://github.com/HERU-LEM/LEMpackHIV/issues
