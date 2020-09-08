@@ -66,5 +66,5 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
-URL: https://HERU-LEM.github.io/LEMpackHIV, https://github.com/HERU-LEM/LEMpackHIV
-BugReports: https://github.com/HERU-LEM/LEMpackHIV/issues
+URL: https://HERU-LEM.github.io/LEMHIVpack, https://github.com/HERU-LEM/LEMHIVpack
+BugReports: https://github.com/HERU-LEM/LEMHIVpack/issues
